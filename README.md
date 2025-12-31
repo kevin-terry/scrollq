@@ -33,49 +33,59 @@ npm install scrollq
 
 ```javascript
 initScrollQ({
-  threshold: 0.5,      // When element is 50% visible
+  threshold: 0.5, // When element is 50% visible
   rootMargin: "-50px", // Offset trigger area
-  reverse: false,      // Enable reverse animations
+  reverse: false, // Enable reverse animations
 });
 ```
 
-### SPA Cleanup
+### Cleanup (SPAs)
 
+**Option 1: Cleanup specific instance**
 ```javascript
 const cleanup = initScrollQ();
-// Later, when unmounting:
+// Later, when component unmounts:
 cleanup();
+```
+
+**Option 2: Cleanup all instances globally**
+```javascript
+import { initScrollQ, destroyScrollQ } from "scrollq";
+
+initScrollQ();
+// Later, to clean up everything:
+destroyScrollQ();
 ```
 
 ## Animations
 
-| Type | Description |
-|------|-------------|
-| `fade` | Simple fade in |
-| `fade-up` | Fade in from below |
-| `fade-down` | Fade in from above |
-| `fade-left` | Fade in from right |
-| `fade-right` | Fade in from left |
-| `scale` | Fade + scale up |
-| `slide-up` | Slide from below (no fade) |
-| `slide-down` | Slide from above (no fade) |
-| `slide-left` | Slide from right (no fade) |
-| `slide-right` | Slide from left (no fade) |
+| Type          | Description                |
+| ------------- | -------------------------- |
+| `fade`        | Simple fade in             |
+| `fade-up`     | Fade in from below         |
+| `fade-down`   | Fade in from above         |
+| `fade-left`   | Fade in from right         |
+| `fade-right`  | Fade in from left          |
+| `scale`       | Fade + scale up            |
+| `slide-up`    | Slide from below (no fade) |
+| `slide-down`  | Slide from above (no fade) |
+| `slide-left`  | Slide from right (no fade) |
+| `slide-right` | Slide from left (no fade)  |
 
 ## Customization
 
 ### Attributes
 
-| Attribute | Default | Description |
-|-----------|---------|-------------|
-| `data-q` | - | Animation type (required) |
-| `data-q-threshold` | `0.6` | Trigger when X% visible (0.0-1.0) |
-| `data-q-offset` | `-40px` | Offset from bottom viewport (%, px, vh, rem) |
-| `data-q-from` | `7rem` | Animation distance |
-| `data-q-duration` | `0.6s` | Animation duration |
-| `data-q-easing` | `ease-out` | Timing function |
-| `data-q-delay` | - | Delay in milliseconds |
-| `data-q-reverse` | `false` | Reverse on scroll up |
+| Attribute          | Default    | Description                                  |
+| ------------------ | ---------- | -------------------------------------------- |
+| `data-q`           | -          | Animation type (required)                    |
+| `data-q-threshold` | `0.6`      | Trigger when X% visible (0.0-1.0)            |
+| `data-q-offset`    | `-40px`    | Offset from bottom viewport (%, px, vh, rem) |
+| `data-q-from`      | `7rem`     | Animation distance                           |
+| `data-q-duration`  | `0.6s`     | Animation duration                           |
+| `data-q-easing`    | `ease-out` | Timing function                              |
+| `data-q-delay`     | -          | Delay in milliseconds                        |
+| `data-q-reverse`   | `false`    | Reverse on scroll up                         |
 
 ### CSS Variables
 
@@ -91,6 +101,7 @@ cleanup();
 ## Examples
 
 **Staggered list:**
+
 ```html
 <ul>
   <li data-q="fade-up" data-q-delay="100">First</li>
@@ -100,16 +111,19 @@ cleanup();
 ```
 
 **Trigger at viewport middle:**
+
 ```html
 <div data-q="fade-up" data-q-offset="-50%">Centered trigger</div>
 ```
 
 **Reverse animations:**
+
 ```html
 <div data-q="scale" data-q-reverse>Reverses when scrolling up</div>
 ```
 
 **Custom animation:**
+
 ```html
 <div data-q="fade-up" data-q-from="10rem" data-q-duration="1s" data-q-easing="ease-in-out">
   Smooth long-distance fade
@@ -121,8 +135,9 @@ cleanup();
 ScrollQ uses the Intersection Observer API to watch elements. When visible, it adds the `q-active` class to trigger CSS transitions.
 
 **Behavior:**
+
 - Animations trigger when scrolling **down** and element enters from bottom
-- With `data-q-reverse`, animations reverse when scrolling **up** 
+- With `data-q-reverse`, animations reverse when scrolling **up**
 - Elements already scrolled past are automatically activated on page load
 - Respects `prefers-reduced-motion` for accessibility
 
