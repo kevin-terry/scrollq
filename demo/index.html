@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollQ Demo</title>
+  <link rel="stylesheet" href="../dist/scrollQ.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.5;
+      color: #333;
+      background-color: #ebddfa;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .hero {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      margin: 0.5rem 0 0.5rem 0;
+      font-size: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .hero .scroll-message {
+      position: absolute;
+      bottom: 20px;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .hero .scroll-message p {
+      font-size: 1rem;
+      margin-top: 2rem;
+    }
+
+    .hero .scroll-arrow {
+      display: inline-block;
+      animation: 1.2s ease-in-out 1.5s 2 bounce;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    .sections {
+      position: relative;
+      background-color: #ebddfa;
+      z-index: 2;
+    }
+
+    .section {
+      position: relative;
+      width: 100%;
+      padding: 7.125rem 0 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      background-color: #ebddfa;
+    }
+
+    .section:nth-child(odd) {
+      background-color: #f4eefa;
+    }
+
+    footer.section {
+      position: sticky;
+      bottom: 0;
+      min-height: 20vh;
+      background-color: #764ba2;
+      color: white;
+      z-index: 1;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin: 0 0 1rem 0;
+      text-align: center;
+    }
+
+    .section .container>p {
+      font-size: 1.333rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 6rem;
+      margin-top: 3rem;
+    }
+
+    .grid.snug {
+      gap: 3rem;
+    }
+
+    .grid.tight {
+      gap: 2rem;
+    }
+
+    .card {
+      color: white;
+      background: #764ba2;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: #f7fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .card>p {
+      font-size: 1.125rem;
+      line-height: 1.4;
+    }
+
+    code {
+      display: block;
+      margin-top: 1rem;
+      background-color: #f4eefa;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 1.125rem;
+      color: black;
+      font-weight: 400;
+    }
+
+    .section:nth-child(even) code {
+      background-color: #ebddfa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div>
+      <h1>ScrollQ</h1>
+      <p>Lightweight scroll animations</p>
+    </div>
+    <div class="scroll-message">
+      <p>Cue the demo</p>
+      <div class="scroll-arrow">⬇</div>
+    </div>
+  </div>
+
+  <div class="sections">
+    <section class="section">
+      <div class="container">
+        <h2 data-q="fade">Basic Fade Animations</h2>
+        <div class="grid">
+          <div class="card" data-q="fade-up">
+            <h3>Fade Up</h3>
+            <p>This card fades in from below as you scroll.</p>
+            <code>data-q="fade-up"</code>
+          </div>
+          <div class="card" data-q="fade-down" data-q-from="60px">
+            <h3>Fade Down</h3>
+            <p>This card fades in from above.</p>
+            <code>data-q="fade-down"</code>
+          </div>
+          <div class="card" data-q="fade-left">
+            <h3>Fade Left</h3>
+            <p>This card fades in from the right.</p>
+            <code>data-q="fade-left"</code>
+          </div>
+          <div class="card" data-q="fade-right">
+            <h3>Fade Right</h3>
+            <p>This card fades in from the left.</p>
+            <code>data-q="fade-right"</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-q="scale">Slide Animations</h2>
+        <p data-q="fade">Slides with no opacity change</p>
+        <div class="grid">
+          <div class="card" data-q="slide-left">
+            <h3>Slide Left</h3>
+            <p>Slides in from the right without fading.</p>
+            <code>data-q="slide-left"</code>
+          </div>
+          <div class="card" data-q="slide-right">
+            <h3>Slide Right</h3>
+            <p>Slides in from the left without fading.</p>
+            <code>data-q="slide-up"</code>
+          </div>
+          <div class="card" data-q="slide-up">
+            <h3>Slide Up</h3>
+            <p>Slides in from below without fading.</p>
+            <code>data-q="slide-up"</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-q="fade-up">Staggered Animations</h2>
+        <div class="grid tight">
+          <div class="card" data-q="fade-up" data-q-delay="0">
+            <p>First (no delay)</p>
+          </div>
+          <div class="card" data-q="fade-up" data-q-delay="100">
+            <p>Second (100ms delay)</p>
+          </div>
+          <div class="card" data-q="fade-up" data-q-delay="200">
+            <p>Third (200ms delay)</p>
+          </div>
+          <div class="card" data-q="fade-up" data-q-delay="300">
+            <p>Fourth (300ms delay)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 data-q="fade-up">Custom Settings</h2>
+        <div class="grid">
+          <div class="card" data-q="scale" data-q-easing="cubic-bezier(0.68, -0.55, 0.265, 1.8)">
+            <p>Bouncy Scale</p>
+            <p>(custom easing)</p>
+          </div>
+          <div class="card" data-q="slide-left" data-q-from="50%" data-q-offset="-200px">
+            <p>Slides 50% of width</p>
+            <p>Trigger offset by -200px</p>
+          </div>
+          <div class="card" data-q="fade-up" data-q-from="30px" data-q-threshold="0.8">
+            <p>Short Fade Up (30px)</p>
+            <p>Triggers at 80% visible</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Reversing Animation</h2>
+        <p>Scroll up and down to see the animation reverse</p>
+        <div class="grid">
+          <div class="card" data-q="scale" data-q-reverse>
+            <p>This scales up/down as you scroll</p>
+            <code>data-q-reverse</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="section">
+      <div class="container">
+        <h2>ScrollQ</h2>
+        <p>Simple, efficient scroll animations</p>
+        <p style="opacity: 0.6;">MIT License • No dependencies • 3.1KB minified (~1.2KB gzipped)</p>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { initScrollQ } from '../dist/scrollQ.js';
+    initScrollQ({ reverse: true });
+  </script>
+
+</body>
+
+</html>

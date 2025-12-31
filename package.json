@@ -1,0 +1,52 @@
+{
+  "name": "scrollq",
+  "version": "1.0.0",
+  "description": "Lightweight scroll-triggered animations using Intersection Observer API",
+  "main": "dist/scrollQ.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/scrollQ.js",
+    "./css": "./dist/scrollQ.css",
+    "./min": "./dist/scrollQ.min.js",
+    "./css/min": "./dist/scrollQ.min.css"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "scroll",
+    "animation",
+    "intersection-observer",
+    "fade",
+    "reveal",
+    "viewport",
+    "aos",
+    "scroll-animation",
+    "lightweight",
+    "vanilla-js"
+  ],
+  "author": "Kevin Terry",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevin-terry/scrollq.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kevin-terry/scrollq/issues"
+  },
+  "homepage": "https://github.com/kevin-terry/scrollq#readme",
+  "scripts": {
+    "build:js": "cp src/scrollQ.js dist/scrollQ.js",
+    "build:css": "cp src/scrollQ.css dist/scrollQ.css",
+    "minify:js": "terser src/scrollQ.js -o dist/scrollQ.min.js -c -m --comments /^!/ --module",
+    "minify:css": "lightningcss --minify --bundle src/scrollQ.css -o dist/scrollQ.min.css",
+    "build": "npm run build:js && npm run build:css && npm run minify:js && npm run minify:css",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "lightningcss-cli": "^1.28.1",
+    "terser": "^5.36.0"
+  }
+}

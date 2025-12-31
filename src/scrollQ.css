@@ -1,0 +1,165 @@
+/*
+  ScrollQ
+  Lightweight scroll-triggered animations
+
+  Basic Usage:
+    <div data-q="fade-up">Content fades in from below</div>
+
+  Available Animations:
+    Fade Variants (opacity + movement):
+      - fade-up       : Fade in from below
+      - fade-down     : Fade in from above
+      - fade-left     : Fade in from right
+      - fade-right    : Fade in from left
+      - fade          : Simple fade (no movement)
+      - scale         : Fade + scale up from 90%
+
+    Slide Variants (movement only, no fade):
+      - slide-up      : Slide in from below
+      - slide-down    : Slide in from above
+      - slide-left    : Slide in from right
+      - slide-right   : Slide in from left
+
+  Optional Attributes:
+    data-q-threshold="0.2"             Trigger when 20% visible (default: 0.6)
+    data-q-reverse="true"              Reverse on scroll up (default: false)
+    data-q-duration="1s"               Animation duration (default: 0.6s)
+    data-q-easing="ease-in-out"        Timing function (default: ease-out)
+    data-q-delay="250"                 Delay in milliseconds
+    data-q-offset="-50%"               Offset from bottom (supports %, px, vh, rem)
+    data-q-from="3rem"                 Custom distance (default: 7rem)
+                                         Auto-detects axis: up/down=Y, left/right=X
+
+  Customize Defaults:
+    --q-from-y: 7rem;      (vertical starting distance)
+    --q-from-x: 7rem;      (horizontal starting distance)
+    --q-duration: 0.6s;    (animation duration)
+    --q-easing: ease-out;  (timing function)
+*/
+
+:root {
+  --q-duration: 0.5s;
+  --q-easing: ease-in-out;
+  --q-delay: 0ms;
+  --q-from-y: 7rem;
+  --q-from-x: 7rem;
+}
+
+/* When element is in view */
+[data-q].q-active {
+  opacity: 1;
+  will-change: auto;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  [data-q] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
+
+/* Fade (no movement) */
+[data-q="fade"] {
+  opacity: 0;
+  transition: opacity var(--q-duration) var(--q-easing) var(--q-delay);
+  will-change: opacity;
+}
+
+[data-q="fade"].q-active {
+  transform: none;
+}
+
+/* Scale (no fade) */
+[data-q="scale"] {
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity var(--q-duration) var(--q-easing) var(--q-delay),
+    transform var(--q-duration) var(--q-easing) var(--q-delay);
+  will-change: opacity, transform;
+}
+
+[data-q="scale"].q-active {
+  transform: scale(1);
+}
+
+/* Fade Variants (with movement) */
+[data-q^="fade-"] {
+  opacity: 0;
+  transition: opacity var(--q-duration) var(--q-easing) var(--q-delay),
+    transform var(--q-duration) var(--q-easing) var(--q-delay);
+  will-change: opacity, transform;
+}
+
+[data-q="fade-up"] {
+  transform: translateY(var(--q-from-y));
+}
+
+[data-q="fade-up"].q-active {
+  transform: translateY(0);
+}
+
+[data-q="fade-down"] {
+  transform: translateY(calc(var(--q-from-y) * -1));
+}
+
+[data-q="fade-down"].q-active {
+  transform: translateY(0);
+}
+
+[data-q="fade-left"] {
+  transform: translateX(var(--q-from-x));
+}
+
+[data-q="fade-left"].q-active {
+  transform: translateX(0);
+}
+
+[data-q="fade-right"] {
+  transform: translateX(calc(var(--q-from-x) * -1));
+}
+
+[data-q="fade-right"].q-active {
+  transform: translateX(0);
+}
+
+/* Slide Variants (no fade) */
+[data-q^="slide"] {
+  opacity: 1;
+  transition: transform var(--q-duration) var(--q-easing) var(--q-delay);
+  will-change: transform;
+}
+
+[data-q="slide-up"] {
+  transform: translateY(var(--q-from-y));
+}
+
+[data-q="slide-up"].q-active {
+  transform: translateY(0);
+}
+
+[data-q="slide-down"] {
+  transform: translateY(calc(var(--q-from-y) * -1));
+}
+
+[data-q="slide-down"].q-active {
+  transform: translateY(0);
+}
+
+[data-q="slide-left"] {
+  transform: translateX(var(--q-from-x));
+}
+
+[data-q="slide-left"].q-active {
+  transform: translateX(0);
+}
+
+[data-q="slide-right"] {
+  transform: translateX(calc(var(--q-from-x) * -1));
+}
+
+[data-q="slide-right"].q-active {
+  transform: translateX(0);
+}
