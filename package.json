@@ -5,7 +5,10 @@
   "main": "dist/scrollQ.js",
   "type": "module",
   "exports": {
-    ".": "./dist/scrollQ.js",
+    ".": {
+      "import": "./dist/scrollQ.js",
+      "style": "./dist/scrollQ.css"
+    },
     "./css": "./dist/scrollQ.css",
     "./min": "./dist/scrollQ.min.js",
     "./css/min": "./dist/scrollQ.min.css"
