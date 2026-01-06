@@ -1,6 +1,6 @@
 {
   "name": "scrollq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lightweight scroll-triggered animations using Intersection Observer API",
   "main": "dist/scrollQ.js",
   "type": "module",
