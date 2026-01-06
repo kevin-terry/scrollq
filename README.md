@@ -29,19 +29,25 @@ npm install scrollq
 <div data-q="slide-left" data-q-delay="200">Delayed animation</div>
 ```
 
-### Configuration
+### Global Configuration
 
 ```javascript
 initScrollQ({
-  threshold: 0.5, // When element is 50% visible
-  rootMargin: "-50px", // Offset trigger area
+  threshold: 0.5, // When element is 50% visible (0-1)
   reverse: false, // Enable reverse animations
+  rootMargin: "-50px", // Offset trigger area
+  duration: "0.6s", // Default animation duration
+  easing: "ease-out", // Default timing function
+  fromY: "7rem", // Default vertical distance
+  fromX: "7rem", // Default horizontal distance
+  selector: "[data-q]", // Custom selector
 });
 ```
 
 ### Cleanup (SPAs)
 
 **Option 1: Cleanup specific instance**
+
 ```javascript
 const cleanup = initScrollQ();
 // Later, when component unmounts:
@@ -49,6 +55,7 @@ cleanup();
 ```
 
 **Option 2: Cleanup all instances globally**
+
 ```javascript
 import { initScrollQ, destroyScrollQ } from "scrollq";
 
@@ -74,18 +81,18 @@ destroyScrollQ();
 
 ## Customization
 
-### Attributes
+### Element Attributes
 
-| Attribute          | Default    | Description                                  |
-| ------------------ | ---------- | -------------------------------------------- |
-| `data-q`           | -          | Animation type (required)                    |
-| `data-q-threshold` | `0.6`      | Trigger when X% visible (0.0-1.0)            |
-| `data-q-offset`    | `-40px`    | Offset from bottom viewport (%, px, vh, rem) |
-| `data-q-from`      | `7rem`     | Animation distance                           |
-| `data-q-duration`  | `0.6s`     | Animation duration                           |
-| `data-q-easing`    | `ease-out` | Timing function                              |
-| `data-q-delay`     | -          | Delay in milliseconds                        |
-| `data-q-reverse`   | `false`    | Reverse on scroll up                         |
+| Attribute          | Default    | Description                      |
+| ------------------ | ---------- | -------------------------------- |
+| `data-q`           | -          | Animation type (required)        |
+| `data-q-threshold` | `0.5`      | Trigger visibility (0.0-1.0)     |
+| `data-q-offset`    | -          | Viewport offset (%, px, vh, rem) |
+| `data-q-from`      | `7rem`     | Animation distance               |
+| `data-q-duration`  | `0.6s`     | Animation duration               |
+| `data-q-easing`    | `ease-out` | Timing function                  |
+| `data-q-delay`     | -          | Delay in milliseconds            |
+| `data-q-reverse`   | `false`    | Reverse on scroll up             |
 
 ### CSS Variables
 

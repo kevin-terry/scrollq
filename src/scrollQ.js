@@ -2,41 +2,42 @@
  * ScrollQ
  * Lightweight scroll-triggered animations using Intersection Observer API
  *
- * @example
+ * @example Basic usage
  * <div data-q="fade-up">Content</div>
+ *
+ * @example Global configuration
+ * initScrollQ({
+ *   threshold: 0.5,
+ *   reverse: false,
+ *   duration: '0.6s',
+ *   easing: 'ease-out',
+ *   fromY: '7rem',
+ *   fromX: '7rem'
+ * });
  *
  * Available Animations:
  *   fade, fade-up, fade-down, fade-left, fade-right
  *   slide-up, slide-down, slide-left, slide-right
  *   scale
  *
- * Attributes:
- *   data-q-threshold="0.0-1.0"     Visibility % to trigger (default: 0.5)
- *   data-q-reverse                 Reverse animation when scrolling up (default: false)
- *   data-q-duration="0.6s"         Animation duration
- *   data-q-easing="ease-out"       Timing function
- *   data-q-delay="100"             Delay in milliseconds
- *   data-q-offset="-50%"           Trigger offset from bottom (supports %, px, vh)
- *   data-q-from="5rem"             Custom animation distance
- *
- * @example
- * Trigger at middle of viewport
- * <div data-q="fade-up" data-q-offset="-50%">...</div>
- *
- * @example
- * Reverse on scroll
- * <div data-q="slide-left" data-q-reverse>...</div>
- *
- * @example
- * Staggered animations
- * <li data-q="fade-up" data-q-delay="100">First</li>
- * <li data-q="fade-up" data-q-delay="200">Second</li>
+ * Element Attributes:
+ *   data-q-threshold="0.5"      Visibility % to trigger (0-1)
+ *   data-q-reverse              Reverse on scroll up
+ *   data-q-duration="0.6s"      Animation duration
+ *   data-q-easing="ease-out"    Timing function
+ *   data-q-delay="100"          Delay in milliseconds
+ *   data-q-offset="-50%"        Trigger offset (%, px, vh, rem)
+ *   data-q-from="5rem"          Animation distance
  *
  * @param {Object} config - Global configuration
  * @param {number} config.threshold - Default threshold (0-1)
  * @param {string} config.rootMargin - Default rootMargin
  * @param {boolean} config.reverse - Default reverse behavior
  * @param {string} config.selector - Element selector
+ * @param {string} config.duration - Default animation duration (e.g., '0.6s')
+ * @param {string} config.easing - Default timing function (e.g., 'ease-out')
+ * @param {string} config.fromY - Default vertical distance (e.g., '7rem')
+ * @param {string} config.fromX - Default horizontal distance (e.g., '7rem')
  * @returns {Function} Cleanup function
  */
 
@@ -72,6 +73,17 @@ export const initScrollQ = (config = {}) => {
   const SELECTOR = config.selector ?? "[data-q]";
 
   initScrollTracking();
+
+  // Apply global CSS custom properties if provided
+  if (config.duration) document.documentElement.style.setProperty("--q-duration", config.duration);
+  if (config.easing) document.documentElement.style.setProperty("--q-easing", config.easing);
+  if (config.fromY) document.documentElement.style.setProperty("--q-from-y", config.fromY);
+  if (config.fromX) document.documentElement.style.setProperty("--q-from-x", config.fromX);
+
+  // Enable transitions after initial state is set
+  requestAnimationFrame(() => {
+    document.body.classList.add("q-ready");
+  });
 
   const observerCache = new Map();
 
